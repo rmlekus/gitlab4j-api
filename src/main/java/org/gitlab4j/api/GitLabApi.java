@@ -80,6 +80,8 @@ public class GitLabApi {
     private TagsApi tagsApi;
     private UserApi userApi;
     private WikisApi wikisApi;
+    private ResourceLevelEventsApi resourceLevelEventsApi;
+    
 
     /**
      * Get the GitLab4J shared Logger instance.
@@ -1428,4 +1430,25 @@ public class GitLabApi {
 
         return wikisApi;
     }
+    
+    /**
+     * Gets the EventsApi instance owned by this GitLabApi instance. The EventsApi is used
+     * to perform all events related API calls.
+     *
+     * @return the EventsApi instance owned by this GitLabApi instance
+     */
+    public ResourceLevelEventsApi getResourceLevelEventsApi() {
+
+        if (resourceLevelEventsApi == null) {
+            synchronized (this) {
+                if (resourceLevelEventsApi == null) {
+                	resourceLevelEventsApi = new ResourceLevelEventsApi(this);
+                }
+            }
+        }
+
+        return (resourceLevelEventsApi);
+    }
+
+
 }
